@@ -33,7 +33,7 @@ public SimpleList()
 
 list = new int[10];
 
-count = 0;
+this.count = 0;
 
 }
 
@@ -47,56 +47,51 @@ public void add(int index)
 {
 
 
-if(count == 0)
+if(count == list.length)
 
 	{
 
-    list[count] = index;
+    int fifty = count/2;
 
-      count++;
+     newsize(count + fifty);
 
 	}
+for(int listing =count; listing>0;listing--) 
+	{
+		list[listing] =list[listing -1];
 
-else if(count < 10)
-
-		{
-
-for(int i = count; i >= 0; i--)
-
-			{
-
-	list[i + 1] = list[i];
-
-			}
-
-		list[0] = index;
-
-count++;
-
-		}
-
-else
-
-{
-
-list[count - 1] = 0;
-
-for(int i = count; i >= 0; i--)
-
-{
-
-list[i + 1] = list[i];
-
-}
-
+	}
 list[0] = index;
 
 count++;
 
 }
 
+//this method unsize will help to size the array to the specific size.
+
+private void newsize(int size) 
+{
+	int array []= new int[size];
+	
+	for(int x =0; x < size && x < count;x++) 
+	{
+		
+		array[x] =list[x];
+	}
+
+	list =array;
+	
+	//make the count equal to size;
+	if( size < count) {
+		
+		count = size;
+	}
 
 }
+
+
+
+
 
 //This method is for removing anything that you insert in the parameter 'num'. Whenever 
 // you call it and insert the in num, it will go out of the array list from simplelist.
@@ -129,6 +124,15 @@ if(index != -1)
 
 	}
 
+int capacity = 3* list.length/4;
+
+	if(count < capacity) 
+		
+	{
+		
+		newsize(count);
+		
+	}
 }
 
 /*
@@ -141,6 +145,66 @@ public int count()
 return count;
 
 }
+
+/*
+The append method should append the parameter to the end
+ of the list.  If the list was full, then increase the
+  size by 50% so there will be room.  Increment the count. 
+*/
+public void append(int value) {
+
+    // increasing capacity if full
+
+    if (count == list.length) {
+
+         int half = count / 2;
+
+         newsize(count + half);
+
+    }
+
+
+
+    list[count] = value;
+
+    count++;
+
+}
+
+/*
+ * Return the first element in the list
+ */
+public int first() {
+
+
+
+    if (count == 0) {
+
+         throw new RuntimeException("list is empty!");
+
+    }
+
+
+    return list[0];
+
+}
+
+/*
+ * Return the current number 
+ * of possible locations in the list
+ */
+
+public int size() {
+
+    return list.length;
+
+}
+
+
+
+
+
+
 
 /*
  * toString will return the list as a String.
